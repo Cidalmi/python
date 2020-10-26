@@ -1,20 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Projetos">
+    <meta name="author" content="Cidalmi Mozart">
+    <link rel="icon" href="{% static 'img/favicon/favicon.ico' %}" type="image/x-icon">
+    
+    <title>Cidalmi Mozart | Personal WebSites</title>
 
-    <title>Agency - Start Bootstrap Theme</title>
+    <!-- Bootstrap core CSS 
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">-->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script defer src="{% static 'fontawesome/js/all.min.js' %}"></script>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css'">
+    <!-- Custom fonts for this template 
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -29,9 +32,11 @@
     {% block content %}
     {% endblock %}
 
-    <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript 
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>-->
+    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <!-- Plugin JavaScript -->
     <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
@@ -42,7 +47,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="{% static 'js/agency.min.js' %}"></script>
-
+    
   </body>
 
 </html>
