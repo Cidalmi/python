@@ -6,3 +6,6 @@ def index(request):
 
 def post_list(request):
     return render(request, 'blog/post_list.html', {})
+
+def network_tools(request):
+    return render(request, 'pages/index.html', {})
