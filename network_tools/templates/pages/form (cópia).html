@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cadastro</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </head>
+    <body>
+      <div class="container">
+            <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+                <a href="#" class="navbar-brand">Network-tools</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse1">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse1">
+                    <div class="navbar-nav">
+                        <a href="#" class="nav-item nav-link active">Home</a>
+                        <a href="#" class="nav-item nav-link">SPF</a>
+                        <a href="#" class="nav-item nav-link">DKIM</a>
+                        <a href="#" class="nav-item nav-link">TRACKING</a>
+                        <a href="#" class="nav-item nav-link">RETURN PATH</a>
+                        <a href="#" class="nav-item nav-link">PAGES</a>
+                        <a href="#" class="nav-item nav-link">HOST</a>
+                    </div>
+                </div>
+            </nav>
+            
+            <h3> Verificar SPF </h3>
+            <form action="#spf" method="POST" class="form-group">
+                {% csrf_token %}
+                <!--{{ form.as_p }}-->
+                {{ form|crispy }}
+                <input class="btn btn-primary" value="Enviar" type="submit"></input>
+            </form><br>
+            {{ form.data.nome }} <br>
+        <pre>{{ result }} </pre>                
+        
+            
+            <div class="row">
+                <div class='ttools col-sm-12 col-md-8'>
+                    <h2>Escolha o seu teste</h2>
+                    <div class="list-group">
+                        <a href="spf.php" class="list-group-item list-group-item-action list-group-item-danger">SPF</a>
+                        <a href="dkim.php" class="list-group-item list-group-item-action list-group-item-warning">DKIM</a>
+                        <a href="tracking.php" class="list-group-item list-group-item-action list-group-item-info">TRACKING</a>
+                        <a href="rp.php" class="list-group-item list-group-item-action list-group-item-light">RETURN PATH</a>
+                        <a href="page.php" class="list-group-item list-group-item-action list-group-item-dark">PAGE</a>
+                        <a href="host.php" class="list-group-item list-group-item-action list-group-item-dark">HOST</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+    <form action="" method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit"></input>
+    </form><br>
+    {{ form.data.nome }} <br>
+<pre>{{ result }} </pre>
+
+<script>
+var path = window.location.href.split('#')[1]; //equals the hash
+$('#pills-tab a').each(function () {
+var hash = $(this).attr('href').split('#')[1];
+//alert(hash); appaers
+if (hash === path) {
+// alert('test'); dont appears
+$('#pills-tab a').removeClass('active');
+$('a[href="#'+hash+'"]').addClass('active');
+}
+});
+</script>
+<script>
+var tab_on = location.hash; // aqui é onde vamos agarrar o valor da hash do url (ex: #listaReservas)
+$('#pills-tab a[data-target="' +tab_on+ '"]').tab('show');
+$('#pills-tab a').on('click', function() {
+var this_target = $(this).data('target');
+var window_href = window.location.href.split('#')[0];
+history.pushState('', '', window_href+this_target); // mudar o url dinamicamente
+});
+</script>
+</body>
+</html>
+-->

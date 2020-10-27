@@ -1,0 +1,39 @@
+{% extends 'pages/base.html' %}
+{% load crispy_forms_tags %}
+    
+{% block content %}        
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+	<a href="{% url 'index' %}" class="navbar-brand">Network-tools</a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse1">
+	<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarCollapse1">
+		<div class="navbar-nav">
+			<a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
+			<a href="{% url 'spf' %}" class="nav-item nav-link">SPF</a>
+			<a href="{% url 'dkim' %}" class="nav-item nav-link">DKIM</a>
+			<a href="{% url 'tracking' %}" class="nav-item nav-link">TRACKING</a>
+			<a href="{% url 'return_path' %}" class="nav-item nav-link">RETURN PATH</a>
+			<a href="{% url 'pages' %}" class="nav-item nav-link">PAGES</a>
+			<a href="{% url 'host' %}" class="nav-item nav-link">HOST</a>
+		</div>
+	</div>
+</nav>
+
+    <div class="row">
+    <div class='ttools col-sm-8 col-md-8'>	
+        <h2>Escolha o seu teste</h2>
+        <div class="list-group">
+            <a href="{% url 'spf' %}" class="list-group-item list-group-item-action list-group-item-danger">SPF</a>
+            <a href="{% url 'dkim' %}" class="list-group-item list-group-item-action list-group-item-warning">DKIM</a>
+            <a href="{% url 'tracking' %}" class="list-group-item list-group-item-action list-group-item-info">TRACKING</a>
+            <a href="{% url 'return_path' %}" class="list-group-item list-group-item-action list-group-item-light">RETURN PATH</a>
+            <a href="{% url 'pages' %}" class="list-group-item list-group-item-action list-group-item-dark">PAGE</a>           
+            <a href="{% url 'host' %}" class="list-group-item list-group-item-action list-group-item-success">HOST</a>           
+            <a href="{% url 'host' %}" class="list-group-item list-group-item-action list-group-item-primary">EMM DKIM</a>           
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
