@@ -5,5 +5,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),
     path('network_tools/', include('network_tools.urls')),
+    path('bolsa/', include('bolsa.urls')),
     path('', include('home.urls')),
 ]

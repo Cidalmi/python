@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrap' ,
     'fontawesome' ,
     'blog',
+    'bolsa',
     'network_tools',
     'crispy_forms',
     'home'

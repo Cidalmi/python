@@ -1,0 +1,23 @@
+{% extends 'pages/base.html' %}
+   
+{% block content %}        
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+	<a href="{% url 'index' %}" class="navbar-brand">Network-tools</a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse1">
+	<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarCollapse1">
+		<div class="navbar-nav">
+			<a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>			
+		</div>
+	</div>
+</nav>
+
+    <div class="row">
+    <div class='ttools col-sm-12 col-md-12'>	
+        <pre><img src="data:image/png;base64,{{ uri }}"> </pre>        
+    </div>
+    </div>
+
+{% endblock %}

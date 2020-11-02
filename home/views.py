@@ -9,3 +9,6 @@ def post_list(request):
 
 def network_tools(request):
     return render(request, 'pages/index.html', {})
+
+def bolsa_familia(request):
+    return render(request, 'bolsa_familia/index.html', {})
