@@ -28,7 +28,7 @@ with open('RELATORIO_DTB_BRASIL_MUNICIPIO.csv', 'r', encoding="utf-8") as data_f
 		print((date.today() + relativedelta(months=-1)).strftime('%Y%m'))
 		print(data[7],data[8])								
 		#print(date.today().strftime('%Y%m'))
-		json_file = requests.request("GET", "http://www.portaltransparencia.gov.br/api-de-dados/bolsa-familia-por-municipio?mesAno=%s&codigoIbge=%s&pagina=1" %((date.today() + relativedelta(months=-1)).strftime('%Y%m'),data[7]),headers=headers).json()		
+		json_file = requests.get("http://www.portaltransparencia.gov.br/api-de-dados/bolsa-familia-por-municipio?mesAno=%s&codigoIbge=%s&pagina=1" %((date.today() + relativedelta(months=-1)).strftime('%Y%m'),data[7]),headers=headers).json()
 		print(json_file)
 		lista['municipio'] = data[8]
 		lista['periodo'] = (date.today() + relativedelta(months=-1)).strftime('%m/%Y')
