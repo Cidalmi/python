@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import os
 import sys
 sys.path.append('home/files_sct')
+#sys.path.append('cidalmi.pythonanywhere.com/home/files_sct')
 #import telegram
 from telegram import envio_telegram
 

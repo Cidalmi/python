@@ -210,7 +210,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <span class="copyright">Copyright &copy; Cidalmi 2020. All Rights Reserved | Design by <a href="http://cidalmi.com.br/"> Cidalmi </a></span>            
+            <span class="copyright">Copyright &copy; Cidalmi <span id="ano"></span>. All Rights Reserved | Design by <a href="http://cidalmi.com.br/"> Cidalmi </a></span>   
+            <script>const today = new Date(); document.getElementById("ano").innerHTML = today.getFullYear();    </script>
           </div>                    
         </div>
       </div>
