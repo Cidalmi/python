@@ -1,4 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+import os
+import sys
+sys.path.append('home/files_sct')
+#import telegram
+from telegram import envio_telegram
 
 # Create your views here.
 def index(request):
@@ -12,3 +18,22 @@ def network_tools(request):
 
 def bolsa_familia(request):
     return render(request, 'bolsa_familia/index.html', {})
+
+def post_email(request):
+    if request.method == 'POST':
+        print("#######################################")        
+        name = request.POST['name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        message = request.POST['message']
+        
+        print("name: {} \nemail: {} \nphone: {}\nmessage:{}".format(name,email, phone, message))
+
+        print("#######################################")   
+        if envio_telegram(name, email, phone, message):
+            return HttpResponse('true')
+        else:
+            return HttpResponse('false')
+    else:
+        print("#######################################")
+        return HttpResponse("false")
