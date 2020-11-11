@@ -1,23 +1,47 @@
 {% extends 'pages/base.html' %}
-   
-{% block content %}        
+
+{% block content %}
 
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
 	<a href="{% url 'index' %}" class="navbar-brand">Network-tools</a>
 	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse1">
-	<span class="navbar-toggler-icon"></span>
+		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse" id="navbarCollapse1">
 		<div class="navbar-nav">
-			<a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>			
+			<a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
 		</div>
 	</div>
 </nav>
 
-    <div class="row">
-    <div class='ttools col-sm-12 col-md-12'>	
-        <pre><img src="data:image/png;base64,{{ uri }}"> </pre>        
-    </div>
-    </div>
+<div class="row">
+	<div class='ttools col-sm-12 col-md-12'>
+		<pre><img src="data:image/png;base64,{{ uri }}"> </pre>
+	</div>
+</div>
+<script>
+	fetch("https://testGet.free.beeceptor.com", {
+		"headers": {
+			"accept": "application/json, text/plain, /",
+			"accept-language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+			"content-type": "application/json;charset=UTF-8"
+		},
+		"referrerPolicy": "unsafe-url",
+		"method": "GET"
+	})
+		.then(response => {
+			console.log(response.status)
+			alert("Status: "+response.status);			
+			return response.json()
+		})
+		// retorna uma promise      
+		.then(result => {
+			console.log(result);
 
+		})
+		.catch(err => {
+			// trata se alguma das promises falhar
+			console.error('Failed retrieving information', err);
+		});
+</script>
 {% endblock %}
