@@ -1,6 +1,64 @@
-{% extends 'pages/base.html' %}
+{% extends 'bolsa_familia/base.html' %}
 
 {% block content %}
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+	var list_array = []
+
+	google.charts.load('visualization', '1', {
+		'packages': ['corechart']
+	});
+	google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+
+		var data = google.visualization.arrayToDataTable([
+			['Task', 'Hours per Day'],
+			['Cartão', 50000],
+			['Cartã2o', 5001200],
+
+			//{% for x in d %}
+			//['{{ x.municipio }}', '{{ x.valor }}'],
+			//{% endfor %}			
+		]);
+
+		// var options = {'title':'My Average Day', 'width':500, 'height':500};
+		/*var options = {
+		  title: 'Total de Recebimentos',
+		  is3D: true,
+		  //legend: { position: 'bottom' }
+		  
+		};*/
+
+		var options = {
+			title: "Total de Recebimentos: R$:150.015,00",
+			titleTextStyle: {
+				fontSize: 20
+				//color: '#FF0000'
+			},
+			//chartArea: {width: '50%', height: '60%'},		  
+			//colors: ['#3366CC', '#990099', '#109618', '#DC3912', '#FF9900','#FF0000','#CCCCCC','#AAAA11','#E67300'],
+			//chartArea: { height: '80%', width:'80%' }, height: '100%', width: '100%', 
+			is3D: true,
+			legend: {
+				textStyle: {
+					fontSize: 18
+				}
+			},
+			legend: 'labeled',
+			// colors: [ '#2483b3', '#AAC789', '#1E4147', '#437356', '#F34A53', '#FAE3B4' ],
+		};
+
+		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+		chart.draw(data, options);
+
+	}
+</script>
+
+
 
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
 	<a href="{% url 'index' %}" class="navbar-brand">Network-tools</a>
@@ -13,35 +71,81 @@
 		</div>
 	</div>
 </nav>
-
-<div class="row">
-	<div class='ttools col-sm-12 col-md-12'>
-		<pre><img src="data:image/png;base64,{{ uri }}"> </pre>
+<div class="container">
+	<h2 class="text-center"><u>Bolsa Familia</u></h2><br>
+	<table class="table table-dark table-striped">
+		<thead>
+			<tr>
+				<th>URL</th>
+				<th>periodo</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{d}}
+			<!-- jinja2 Technique -->
+			{% if data %}
+			{% for i in data %}
+			<tr>
+				<script>
+					var list_object = {}
+					list_object.url = "{{i.url}}"
+					list_object.periodo = "{{i.periodo}}"
+					console.log(list_object)
+					list_array.push(list_object);
+				</script>
+				<td>{{i.url}}</td>
+				<td>{{i.periodo}}</td>
+			</tr>
+			{% endfor %}
+			{% endif %}
+		</tbody>
+	</table>
+	<div class="row">
+		<div class='ttools col-sm-12 col-md-12'>
+			<!-- <pre><img src="data:image/png;base64,{{ uri }}"> </pre> -->
+		</div>
 	</div>
-</div>
-<script>
-	fetch("https://testGet.free.beeceptor.com", {
-		"headers": {
-			"accept": "application/json, text/plain, /",
-			"accept-language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-			"content-type": "application/json;charset=UTF-8"
-		},
-		"referrerPolicy": "unsafe-url",
-		"method": "GET"
-	})
-		.then(response => {
-			console.log(response.status)
-			alert("Status: "+response.status);			
-			return response.json()
-		})
-		// retorna uma promise      
-		.then(result => {
-			console.log(result);
 
-		})
-		.catch(err => {
-			// trata se alguma das promises falhar
-			console.error('Failed retrieving information', err);
-		});
-</script>
-{% endblock %}
+	<h1>Grafico</h1>
+	<div id="piechart"></div>
+
+
+	<script>
+		function get_portaltransparencia(url) {
+			fetch(url, {
+				"headers": {
+					"Accept": "*/*",
+					"chave-api-dados": "d39339d7bdb4938ac2adc62a8d2564a2",
+					"accept-language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+					"content-type": "application/json;charset=UTF-8",
+
+					"access-control-allow-origin": "*",
+				},
+				//"referrerPolicy": "origin-when-cross-origin",
+				"credentials": "same-origin",
+				"mode": "no-cors",
+				"method": "GET"
+			})
+				.then(response => {
+					console.log(response.status)
+					//alert("Status: "+response.status);			
+					return response.json()
+				})
+				// retorna uma promise      
+				.then(result => {
+				console.log(result);
+
+				})
+				.catch(err => {
+					// trata se alguma das promises falhar
+					console.error('Failed retrieving information', err);
+				});
+		}
+		console.log(list_array);
+		for (var i = 0; i < list_array.length; i++) {
+			console.log(list_array[i].url);
+			get_portaltransparencia(list_array[i].url);
+		};
+
+	</script>
+	{% endblock %}

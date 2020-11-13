@@ -4,7 +4,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.index, name='index_network_tools'),
     path('spf', views.spf, name='spf'),
     path('dkim', views.dkim, name='dkim'),
     path('tracking', views.tracking, name='tracking'),

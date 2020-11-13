@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 import requests
 from requests.auth import HTTPBasicAuth
+from django.http import JsonResponse
 import json
 import os
 import csv
@@ -30,8 +31,83 @@ def bolsa(request):
         csv_writer = csv.reader(data_file, delimiter=';', quoting=csv.QUOTE_MINIMAL, lineterminator='"')			
         dados = [r for r in csv_writer]
         for data in dados[1:]:			
-            #print(data[7],data[8])								
-            #print(date.today().strftime('%Y%m'))
+            ##print(data[7],data[8])								
+            ##print(date.today().strftime('%Y%m'))            
+            lista['url'] = ("https://www.portaltransparencia.gov.br/api-de-dados/bolsa-familia-por-municipio?mesAno=%s&codigoIbge=%s&pagina=1" %((date.today() + relativedelta(months=-1)).strftime('%Y%m'),data[7]))
+            lista['periodo'] = (date.today() + relativedelta(months=-1)).strftime('%m/%Y')            
+            list_total.append(lista) 		
+            lista = {}	
+            
+            #Usado para teste, limita o for há 5 loops
+            if limit == 10:			
+                break		
+            limit += 1
+
+    df = pd.DataFrame(list_total)
+    #print('#################### Pandas ####################')	
+    #print(list_total)	
+
+  
+    return render(request, 'bolsa_familia/index.html',  {'data': list_total}) 
+
+def get_dados_bolsa(request):
+    headers = {
+        'Content-Type': "application/json, charset=utf-8",   
+        'Accept': "*/*",   
+        'chave-api-dados': "d39339d7bdb4938ac2adc62a8d2564a2",   
+    }
+    limit = 0
+    list_total = []
+    lista = {}
+
+    with open(os.path.dirname(os.path.realpath(__file__)) + '\RELATORIO_DTB_BRASIL_MUNICIPIO.csv', 'r', encoding="utf-8") as data_file:
+        csv_writer = csv.reader(data_file, delimiter=';', quoting=csv.QUOTE_MINIMAL, lineterminator='"')			
+        dados = [r for r in csv_writer]
+        for data in dados[1:]:			
+            ##print(data[7],data[8])								
+            ##print(date.today().strftime('%Y%m'))
+            json_file = requests.request("GET", "http://www.portaltransparencia.gov.br/api-de-dados/bolsa-familia-por-municipio?mesAno=%s&codigoIbge=%s&pagina=1" %((date.today() + relativedelta(months=-1)).strftime('%Y%m'),data[7]),headers=headers).json()
+            lista['municipio'] = data[8]
+            lista['periodo'] = date.today().strftime('%m/%Y')
+            lista['quantidadeBeneficiados'] = json_file[0]['quantidadeBeneficiados']
+            lista['valor'] = json_file[0]['valor']
+            list_total.append(lista) 		
+            lista = {}	
+            
+            #Usado para teste, limita o for há 5 loops
+            if limit == 5:			
+                break		
+            limit += 1
+
+    df = pd.DataFrame(list_total)
+    #print('#################### Pandas ####################')	
+    
+    # parsing the DataFrame in json format. 
+    json_records = df.reset_index().to_json(orient ='records') 
+    data = [] 
+    data = json.loads(json_records) 
+    context = {'d': data} 
+    context2 = {'d': 'data'} 
+    
+    return JsonResponse(context)
+    #return render(request, 'bolsa_familia/index.html', context) 
+
+def bolsa_get_py(request):
+    headers = {
+        'Content-Type': "application/json, charset=utf-8",   
+        'Accept': "*/*",   
+        'chave-api-dados': "d39339d7bdb4938ac2adc62a8d2564a2",   
+    }
+    limit = 0
+    list_total = []
+    lista = {}
+
+    with open(os.path.dirname(os.path.realpath(__file__)) + '\RELATORIO_DTB_BRASIL_MUNICIPIO.csv', 'r', encoding="utf-8") as data_file:
+        csv_writer = csv.reader(data_file, delimiter=';', quoting=csv.QUOTE_MINIMAL, lineterminator='"')			
+        dados = [r for r in csv_writer]
+        for data in dados[1:]:			
+            ##print(data[7],data[8])								
+            ##print(date.today().strftime('%Y%m'))
             json_file = requests.request("GET", "http://www.portaltransparencia.gov.br/api-de-dados/bolsa-familia-por-municipio?mesAno=%s&codigoIbge=%s&pagina=1" %((date.today() + relativedelta(months=-1)).strftime('%Y%m'),data[7]),headers=headers).json()
             lista['municipio'] = data[8]
             lista['periodo'] = date.today().strftime('%m/%Y')
@@ -47,7 +123,17 @@ def bolsa(request):
 
     df = pd.DataFrame(list_total)
     #print('#################### Pandas ####################')	
-    df = df.sort_values(['valor'], ascending=False).groupby('valor').head(20)
+    
+    # parsing the DataFrame in json format. 
+    json_records = df.reset_index().to_json(orient ='records') 
+    data = [] 
+    data = json.loads(json_records) 
+    context = {'d': data} 
+  
+    return render(request, 'bolsa_familia/index.html', context) 
+    
+    
+    """ df = df.sort_values(['valor'], ascending=False).groupby('valor').head(20)
     #print(df, end='\n')
 
     df.plot(kind='bar',x='municipio',y='valor', rot=5, fontsize=10)
@@ -58,6 +144,8 @@ def bolsa(request):
     buf.seek(0)
     string = base64.b64encode(buf.read())
     #uri = 'data:image/png;base64,' + urllib.parse.quote(string)
-    uri = urllib.parse.quote(string)
+    uri = urllib.parse.quote(string) 
+
 
     return render(request, 'bolsa_familia/index.html', {'uri': uri})
+    """
