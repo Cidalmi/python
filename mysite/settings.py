@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'fontawesome' ,
     'blog',
     'bolsa',
+    'cep',
     'network_tools',
     'crispy_forms',
     'home'

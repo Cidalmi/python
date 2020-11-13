@@ -27,7 +27,7 @@ def bolsa(request):
     list_total = []
     lista = {}
 
-    with open(os.path.dirname(os.path.realpath(__file__)) + '\RELATORIO_DTB_BRASIL_MUNICIPIO.csv', 'r', encoding="utf-8") as data_file:
+    with open(os.path.dirname(os.path.realpath(__file__)) + '/RELATORIO_DTB_BRASIL_MUNICIPIO.csv', 'r', encoding="utf-8") as data_file:
         csv_writer = csv.reader(data_file, delimiter=';', quoting=csv.QUOTE_MINIMAL, lineterminator='"')			
         dados = [r for r in csv_writer]
         for data in dados[1:]:			

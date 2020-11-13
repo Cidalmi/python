@@ -6,5 +6,6 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('network_tools/', include('network_tools.urls')),
     path('bolsa/', include('bolsa.urls')),
+    path('cep/', include('cep.urls')),
     path('', include('home.urls')),
 ]

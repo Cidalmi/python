@@ -1,0 +1,63 @@
+{% extends 'pages/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+	<a href="{% url 'index' %}" class="navbar-brand">CEP - API</a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse1">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarCollapse1">
+		<div class="navbar-nav">
+			<a href="{% url 'home_cep' %}" class="nav-item nav-link">Home</a>
+		</div>
+	</div>
+</nav>
+<br>
+<h3> Consultar CEP </h3>
+<form method="POST" class="form-group">
+	{% csrf_token %}
+	<!--{{ form.as_p }}-->
+	{{ form|crispy }}
+	<input class="btn btn-primary" value="Enviar" type="submit"></input>
+</form><br>
+<div style="display: none" id="cep">
+	<div class="alert alert-dark" role="alert">
+		Consulta CEP: {{ form.data.nome }}
+	</div>
+	<div class="alert alert-secondary" role="alert">
+		<p>Endereço: {{result_request.address}}</p>
+		<p>Estado: {{result_request.state}}</p>
+		<p>Cidade: {{result_request.city}}</p>
+		<p>Bairro: {{result_request.district}}</p>
+		<p>DDD: {{result_request.ddd}}</p>
+		<p>Latitude : {{result_request.lat}}</p>
+		<p>Longitude: {{result_request.lng}}</p>
+	</div>
+	<div class="alert alert-dark" role="alert" style="height: 500px">
+		<div id="map"></div>
+	</div>
+</div>
+<div class="alert alert-dark" >
+	<ul class="list-group list-group-flush">
+		<h3>Api Usadas</h3>		
+		<li class="list-group-item">Api: <a href="https://awesomeapi.com.br">Awesomeapi</a></li>
+		<li class="list-group-item">Api: <a href="https://mapbox.com">Mapbox</a></li>		
+	  </ul>
+</div>
+<script>
+	var consult = "{{form.data.nome}}";
+	if (consult != "") {
+		document.getElementById("cep").style.display = 'inline';
+		console.log("{{ form.data.nome }}");
+	};
+	mapboxgl.accessToken = 'pk.eyJ1IjoibW96YXJ0bWFwIiwiYSI6ImNraGduaWJycDB1NTUyeW80aWQ5b2I4MncifQ.R1ShERrIE6mMopwAjAj5lw';
+	var map = new mapboxgl.Map({
+		container: 'map', // container id
+		style: 'mapbox://styles/mapbox/streets-v11', // style URL
+		center: ["{{result_request.lng}}", "{{result_request.lat}}"], // starting position [lng, lat]
+		zoom: 17 // starting zoom
+	});	
+</script>
+{% endblock %}
