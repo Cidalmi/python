@@ -5,9 +5,6 @@ from django.http import HttpResponse
 import requests
 import json
 
-def spf(request):    
-    return render(request, 'pages/index22.html', {})
-
 def index(request):
     result = ""
     if request.POST:                
@@ -24,9 +21,9 @@ def index(request):
         
         print(pergunta)
         print(json_file)
-        return render(request, "pages/index.html", {'form': form, 'result': result, 'result_request': json_file})
+        return render(request, "cep/index.html", {'form': form, 'result': result, 'result_request': json_file})
     else:
         form = Usuarioformcep()
         #print("Else")
         print(form.data)
-    return render(request, "pages/index.html", {'form': form})
+    return render(request, "cep/index.html", {'form': form})
