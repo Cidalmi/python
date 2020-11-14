@@ -15,7 +15,8 @@ import io
 import urllib, base64
 import MySQLdb
 #arquivo de variaveis para conexão com banco de Dados
-from conect import *
+#rom conect import *
+from bolsa.conect import *
 #plt.close('all')
 
 # Create your views here.
