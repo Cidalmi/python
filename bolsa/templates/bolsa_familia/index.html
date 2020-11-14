@@ -5,7 +5,13 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript">
-	var list_array = []
+	var data_py = "{{data|escapejs}}";
+	console.log(data_py);
+	var list_array = [['municipio', 'valor']];
+	for (var prop in data_py) {
+		console.log(data_py[prop].valor);
+		list_array.push([data_py[prop].municipio,data_py[prop].valor])
+	};
 
 	google.charts.load('visualization', '1', {
 		'packages': ['corechart']
@@ -14,15 +20,7 @@
 
 	function drawChart() {
 
-		var data = google.visualization.arrayToDataTable([
-			['Task', 'Hours per Day'],
-			['Cartão', 50000],
-			['Cartã2o', 5001200],
-
-			//{% for x in d %}
-			//['{{ x.municipio }}', '{{ x.valor }}'],
-			//{% endfor %}			
-		]);
+		var data = google.visualization.arrayToDataTable(list_array);
 
 		// var options = {'title':'My Average Day', 'width':500, 'height':500};
 		/*var options = {
@@ -68,36 +66,36 @@
 	</div>
 </nav>
 <div class="container">
-	<h2 class="text-center"><u>Bolsa Familia</u></h2><br>
-	<table class="table table-dark table-striped">
-		<thead>
-			<tr>
-				<th></th>
-				<th>municipio</th>				
-				<th>periodo</th>
-				<th>quantidadeBeneficiados</th>
-				<th>valor</th>
-			</tr>
-		</thead>
-		<tbody>
-			{{data}}
-			<!-- jinja2 Technique -->
-			{% if data %}
-			{% for i in data %}
-			<tr>
-				<td>{{i.index}}</td>
-				<td>{{i.municipio}}</td>
-				<td>{{i.periodo}}</td>
-				<td>{{i.quantidadeBeneficiados}}</td>
-				<td>{{i.valor}}</td>
-			</tr>
-			{% endfor %}
-			{% endif %}
-		</tbody>
-	</table>
+	<div class="row col-sm-12 col-md-12">
+		<h2 class="text-center"><u>Bolsa Familia</u></h2><br>
+		<table class="table table-dark table-striped">
+			<thead>
+				<tr>
+					<th></th>
+					<th>municipio</th>
+					<th>periodo</th>
+					<th>quantidadeBeneficiados</th>
+					<th>valor</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if data %}
+				{% for i in data %}
+				<tr>
+					<td>{{i.index}}</td>
+					<td>{{i.municipio}}</td>
+					<td>{{i.periodo}}</td>
+					<td>{{i.quantidadeBeneficiados}}</td>
+					<td>{{i.valor}}</td>
+				</tr>
+				{% endfor %}
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
 	<div class="row">
 		<div class='ttools col-sm-12 col-md-12'>
-			<pre><img src="data:image/png;base64,{{ uri }}"> </pre>
+			<!-- <pre><img src="data:image/png;base64,{{ uri }}"> </pre> -->
 		</div>
 	</div>
 
@@ -105,21 +103,5 @@
 	<div id="piechart"></div>
 </div>
 
-
-
-Opposite of ?   
-  <br><br>Result : <h id='result'></h> 
-<script> 
-	function opposite(){ 
-	  var data = "{{data|escapejs}}"; 
-	  console.log(data);
-	 
-	} 
-	opposite()
-/* 	for (var prop in test) {
-  
-  console.log(test[prop].valor);
-} */
-//AEc66GBpRf3SpEw
-  </script>
+<br><br>Result : {{data}}<h id='result'></h>
 {% endblock %}

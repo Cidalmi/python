@@ -41,10 +41,8 @@ def bolsa(request):
 
     # Finaliza a conexão
     cursor.close()	
-    # Mostra o resultado:
-    print("\n")
-    print('#################### Inicio Loops Bases ####################  ')
-    print("\n")
+    # Mostra o resultado:    
+    #print('#################### Inicio Loops Bases ####################  ')    
     #Transformando o resultado da consulta na DB50 em lista para insert no dataframe
     for linha in resultado :
         
@@ -57,9 +55,9 @@ def bolsa(request):
         lista = {}	        
     
         #Usado para teste, limita o for há 5 loops
-        if limit == 5:			
-            break		
-        limit += 1
+        #if limit == 5:			
+        #    break		
+        #limit += 1
 
     df = pd.DataFrame(list_total)
     #print('#################### Pandas ####################')	  
@@ -81,9 +79,9 @@ def bolsa(request):
     json_records = df.reset_index().to_json(orient ='records') 
     data = [] 
     data = json.loads(json_records)     
-    
-    #return JsonResponse(context)
-    return render(request, 'bolsa_familia/index.html', {'data': data, 'uri':  uri}) 
+        
+    #return render(request, 'bolsa_familia/index.html', {'data': data, 'uri':  uri}) 
+    return render(request, 'bolsa_familia/index.html', {'data': data}) 
 
 def bolsa_get_py(request):
     headers = {
