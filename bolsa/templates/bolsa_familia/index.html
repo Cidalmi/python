@@ -22,34 +22,20 @@
 
 		var data = google.visualization.arrayToDataTable(list_array);
 
-		// var options = {'title':'My Average Day', 'width':500, 'height':500};
-		/*var options = {
-		  title: 'Total de Recebimentos',
-		  is3D: true,
-		  //legend: { position: 'bottom' }
-		  
-		};*/
-
 		var options = {
 			title: "Total de Recebimentos: R$:150.015,00",
 			titleTextStyle: {
 				fontSize: 20
-				//color: '#FF0000'
-			},
-			//chartArea: {width: '50%', height: '60%'},		  
-			//colors: ['#3366CC', '#990099', '#109618', '#DC3912', '#FF9900','#FF0000','#CCCCCC','#AAAA11','#E67300'],
-			//chartArea: { height: '80%', width:'80%' }, height: '100%', width: '100%', 
-			is3D: true,
+			},			
 			legend: {
 				textStyle: {
 					fontSize: 18
 				}
 			},
-			legend: 'labeled',
-			// colors: [ '#2483b3', '#AAC789', '#1E4147', '#437356', '#F34A53', '#FAE3B4' ],
+			legend: 'labeled',			
 		};
 
-		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
 		chart.draw(data, options);
 	}
 </script>
