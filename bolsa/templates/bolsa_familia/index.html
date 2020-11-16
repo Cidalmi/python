@@ -10,7 +10,7 @@
 	var list_array = [['municipio', 'valor']];
 	for (var prop in data_py) {
 		console.log(data_py[prop]);
-		list_array.push([data_py[prop].municipio,data_py[prop].valor])
+		list_array.push([data_py[prop].municipio, data_py[prop].valor])
 	};
 
 	google.charts.load('visualization', '1', {
@@ -22,17 +22,26 @@
 
 		var data = google.visualization.arrayToDataTable(list_array);
 
+
 		var options = {
-			title: "Total de Recebimentos: R$:150.015,00",
-			titleTextStyle: {
-				fontSize: 20
-			},			
-			legend: {
-				textStyle: {
-					fontSize: 18
-				}
+			//width: 1000,			
+			height: 800,
+			title: "Top 15 cidades com maior arrecadação do Bolsa Família",
+
+			hAxis: {
+				title: 'Municipio',
 			},
-			legend: 'labeled',			
+			vAxis: {
+				title: 'Valor recebido',
+				format: 'short'
+			},
+			titleTextStyle: {
+				fontSize: 20				
+			},
+			bar: { groupWidth: '50%' },
+			legend: {
+				position: 'none'
+			},				
 		};
 
 		var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
