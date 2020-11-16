@@ -9,7 +9,8 @@
 	console.log(data_py);
 	var list_array = [['municipio', 'valor']];
 	for (var prop in data_py) {
-		console.log(data_py[prop]);
+		console.log(data_py[prop].municipio);
+		console.log(data_py[prop].valor);
 		list_array.push([data_py[prop].municipio, data_py[prop].valor])
 	};
 
