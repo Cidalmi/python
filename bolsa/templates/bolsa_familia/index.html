@@ -5,7 +5,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript">
-	var data_py = "{{data|escapejs}}";
+	var data_py = "{{data|safe}}";
 	console.log(data_py);
 	var list_array = [['municipio', 'valor']];
 	for (var prop in data_py) {
