@@ -76,7 +76,7 @@ def bolsa_get_py(request):
     headers = {
         'Content-Type': "application/json, charset=utf-8",   
         'Accept': "*/*",   
-        'chave-api-dados': "d39339d7bdb4938ac2adc62a8d2564a2",   
+        'chave-api-dados': "xxxxxx",   
     }
     limit = 0
     list_total = []
