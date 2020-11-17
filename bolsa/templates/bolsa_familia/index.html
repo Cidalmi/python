@@ -5,11 +5,12 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	var data_py = {{ data| safe}};
+	var perido = new Date();
 	console.log(data_py);
 	var list_array = [['municipio', 'valor']];
 	for (var prop in data_py) {
 		console.log(data_py[prop].municipio);
-		console.log(data_py[prop].valor);
+		console.log(data_py[prop].valor);		
 		list_array.push([data_py[prop].municipio, data_py[prop].valor])
 	};
 	google.charts.load('visualization', '1', {
@@ -21,7 +22,7 @@
 		var options = {
 			//width: 1000,			
 			height: 800,
-			title: "Top 15 cidades com maior arrecadação do Bolsa Família",
+			title: "Top 15 cidades com maior arrecadação do Bolsa Família"+ " Periodo: "+ (perido.getMonth() + 0) + "/" + perido.getFullYear(),
 			hAxis: {
 				title: 'Municipio',
 			},
@@ -57,10 +58,9 @@
 		data.addColumn('number', 'Salary');
 		data.addRows(list_array2);
 		var table = new google.visualization.Table(document.getElementById('table_div'));
-		table.draw(data, { showRowNumber: true, width: '30%', height: '40%' });
+		table.draw(data, { showRowNumber: true, width: '80%', height: '80%' });
 	}
 </script>
-
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
 	<a href="{% url 'index' %}" class="navbar-brand">Bolsa Familia</a>
 	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse1">
@@ -73,50 +73,20 @@
 	</div>
 </nav>
 <div class="container">
-	<!-- 	<div class="row col-sm-12 col-md-12">
-		<h2 class="text-center"><u>Bolsa Familia</u></h2><br>
-		<table class="table table-dark table-striped">
-			<thead>
-				<tr>
-					<th></th>
-					<th>municipio</th>
-					<th>periodo</th>
-					<th>quantidadeBeneficiados</th>
-					<th>valor</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% if data %}
-				{% for i in data %}
-				<tr>
-					<td>{{i.index}}</td>
-					<td>{{i.municipio}}</td>
-					<td>{{i.periodo}}</td>
-					<td>{{i.quantidadeBeneficiados}}</td>
-					<td>{{i.valor}}</td>
-				</tr>
-				{% endfor %}
-				{% endif %}
-			</tbody>
-		</table>
-	</div> -->
-	<!-- <div class="row">
-		<div class='ttools col-sm-12 col-md-12'>
-			<pre><img src="data:image/png;base64,{{ uri }}"> </pre>
-		</div>
-	</div> -->
-
-
+	<div class="row col-sm-12 col-md-12">
+		<ul class="list-group">
+			<li class="list-group-item">Usada a Api do Portal da transparência, acesse: <a href="http://www.portaltransparencia.gov.br/swagger-ui.html">API</a></li>
+			<li class="list-group-item">Para criar os Gráfico: <a href="https://developers.google.com/chart">Google Charts</a></li>			
+		  </ul>
+	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<h1>Grafico</h1>
-			<div class="chart" id="ColumnChart"></div>
+			<div class="chart text-center" id="ColumnChart"></div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<h1>Plan</h1>
-			<div class="chart" id="table_div"></div>
+			<div class="chart text-center" id="table_div"></div>
 		</div>
 	</div>
 </div>

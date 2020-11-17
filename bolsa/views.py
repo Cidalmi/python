@@ -42,8 +42,7 @@ def bolsa(request):
     # Finaliza a conexão
     cursor.close()	
     # Mostra o resultado:    
-    #print('#################### Inicio Loops Bases ####################  ')    
-    #Transformando o resultado da consulta na DB50 em lista para insert no dataframe
+    #print('#################### Inicio Loops Bases ####################  ')        
     for linha in resultado :
         
         lista['municipio'] = linha[1]
@@ -64,17 +63,7 @@ def bolsa(request):
 
     df = df.sort_values(['valor'], ascending=False).groupby('valor').head(20)
     #print(df, end='\n')
-
-    df.plot(kind='bar',x='municipio',y='valor', rot=5, fontsize=10)
-    #plt.show()
-    fig = plt.gcf()
-    buf = io.BytesIO()
-    fig.savefig(buf, format='png')
-    buf.seek(0)
-    string = base64.b64encode(buf.read())
-    #uri = 'data:image/png;base64,' + urllib.parse.quote(string)
-    uri = urllib.parse.quote(string) 
-
+    
     # parsing the DataFrame in json format. 
     json_records = df.reset_index().to_json(orient ='records') 
     data = [] 
