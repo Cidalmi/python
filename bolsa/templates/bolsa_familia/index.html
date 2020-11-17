@@ -19,7 +19,7 @@
 		var options = {
 			//width: 1000,			
 			height: 800,
-			title: "15 cidades com maior arrecadação do Bolsa Família"+ " Periodo: "+ (perido.getMonth() + 0) + "/" + perido.getFullYear(),
+			title: "15 cidades com maior arrecadação do Bolsa Família - "+ (perido.getMonth() + 0) + "/" + perido.getFullYear(),
 			hAxis: {
 				title: 'Municipio',
 			},
@@ -87,8 +87,9 @@
 </div>
 <script type="text/javascript">
 	$(window).resize(function () {
-		drawChart();
 		drawTable();
+		drawChart();
+		
 	});
 </script>
 {% endblock %}
