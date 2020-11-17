@@ -3,9 +3,8 @@
 {% block content %}
 <!--Load the AJAX API-->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript">
-	var data_py = {{ data|safe}};
+	var data_py = {{ data| safe}};
 	console.log(data_py);
 	var list_array = [['municipio', 'valor']];
 	for (var prop in data_py) {
@@ -13,22 +12,16 @@
 		console.log(data_py[prop].valor);
 		list_array.push([data_py[prop].municipio, data_py[prop].valor])
 	};
-
 	google.charts.load('visualization', '1', {
-		'packages': ['corechart']
+		'packages': ['corechart'], 'language': 'pt'
 	});
 	google.charts.setOnLoadCallback(drawChart);
-
 	function drawChart() {
-
 		var data = google.visualization.arrayToDataTable(list_array);
-
-
 		var options = {
 			//width: 1000,			
 			height: 800,
 			title: "Top 15 cidades com maior arrecadação do Bolsa Família",
-
 			hAxis: {
 				title: 'Municipio',
 			},
@@ -44,9 +37,27 @@
 				position: 'none'
 			},
 		};
-
 		var chart = new google.visualization.ColumnChart(document.getElementById('ColumnChart'));
 		chart.draw(data, options);
+	}
+</script>
+<script>
+	var list_array2 = [];
+	for (var x in data_py) {
+		console.log(data_py[x].municipio);
+		console.log(data_py[x].valor);
+		list_array2.push([data_py[x].municipio, data_py[x].valor])
+	};
+	google.charts.load('current', { 'packages': ['table'], 'language': 'pt' });
+	google.charts.setOnLoadCallback(drawTable);
+
+	function drawTable() {
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Name');
+		data.addColumn('number', 'Salary');
+		data.addRows(list_array2);
+		var table = new google.visualization.Table(document.getElementById('table_div'));
+		table.draw(data, { showRowNumber: true, width: '30%', height: '40%' });
 	}
 </script>
 
@@ -62,7 +73,7 @@
 	</div>
 </nav>
 <div class="container">
-	<div class="row col-sm-12 col-md-12">
+	<!-- 	<div class="row col-sm-12 col-md-12">
 		<h2 class="text-center"><u>Bolsa Familia</u></h2><br>
 		<table class="table table-dark table-striped">
 			<thead>
@@ -88,12 +99,12 @@
 				{% endif %}
 			</tbody>
 		</table>
-	</div>
-	<div class="row">
+	</div> -->
+	<!-- <div class="row">
 		<div class='ttools col-sm-12 col-md-12'>
-			<!-- <pre><img src="data:image/png;base64,{{ uri }}"> </pre> -->
+			<pre><img src="data:image/png;base64,{{ uri }}"> </pre>
 		</div>
-	</div>
+	</div> -->
 
 
 	<div class="row">
@@ -102,13 +113,17 @@
 			<div class="chart" id="ColumnChart"></div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Plan</h1>
+			<div class="chart" id="table_div"></div>
+		</div>
+	</div>
 </div>
-
-<br><br>Result : {{data|safe}}<h id='result'></h>
-
 <script type="text/javascript">
-    $(window).resize(function() {
-		drawChart();      
-    });
-  </script>
+	$(window).resize(function () {
+		drawChart();
+		drawTable();
+	});
+</script>
 {% endblock %}
