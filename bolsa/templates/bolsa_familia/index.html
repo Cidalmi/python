@@ -5,12 +5,9 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	var data_py = {{ data| safe}};
-	var perido = new Date();
-	console.log(data_py);
+	var perido = new Date();	
 	var list_array = [['municipio', 'valor']];
-	for (var prop in data_py) {
-		console.log(data_py[prop].municipio);
-		console.log(data_py[prop].valor);		
+	for (var prop in data_py) {	
 		list_array.push([data_py[prop].municipio, data_py[prop].valor])
 	};
 	google.charts.load('visualization', '1', {
@@ -22,7 +19,7 @@
 		var options = {
 			//width: 1000,			
 			height: 800,
-			title: "Top 15 cidades com maior arrecadação do Bolsa Família"+ " Periodo: "+ (perido.getMonth() + 0) + "/" + perido.getFullYear(),
+			title: "15 cidades com maior arrecadação do Bolsa Família"+ " Periodo: "+ (perido.getMonth() + 0) + "/" + perido.getFullYear(),
 			hAxis: {
 				title: 'Municipio',
 			},
@@ -44,10 +41,9 @@
 </script>
 <script>
 	var list_array2 = [];
-	for (var x in data_py) {
-		console.log(data_py[x].municipio);
-		console.log(data_py[x].valor);
-		list_array2.push([data_py[x].municipio, data_py[x].valor])
+	for (var x in data_py) {		
+		list_array2.push([data_py[x].municipio, data_py[x].quantidadeBeneficiados, data_py[x].valor])
+		 
 	};
 	google.charts.load('current', { 'packages': ['table'], 'language': 'pt' });
 	google.charts.setOnLoadCallback(drawTable);
@@ -55,6 +51,7 @@
 	function drawTable() {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'Name');
+		data.addColumn('string', 'Beneficiados');
 		data.addColumn('number', 'Salary');
 		data.addRows(list_array2);
 		var table = new google.visualization.Table(document.getElementById('table_div'));
