@@ -51,7 +51,7 @@
 	function drawTable() {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'Name');
-		data.addColumn('string', 'Beneficiados');
+		data.addColumn('number', 'Beneficiados');
 		data.addColumn('number', 'Salary');
 		data.addRows(list_array2);
 		var table = new google.visualization.Table(document.getElementById('table_div'));
